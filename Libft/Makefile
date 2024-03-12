@@ -1,8 +1,3 @@
-CC = cc
-
-
-CFLAGS = -Wall -Wextra -Werror
-
 SRC = ft_substr.c \
 ft_isalpha.c \
 ft_memcpy.c \
@@ -48,26 +43,35 @@ ft_lstclear_bonus.c \
 ft_lstiter_bonus.c \
 ft_lstmap_bonus.c
 
+NAME = libft.a
+
 OBJ = $(SRC:.c=.o)
+
+B_NAME = libft_bonus.a
 
 B_OBJ = $(B_SRC:.c=.o)
 
-NAME = libft.a
+CC = cc
+
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ar -rc $(NAME) $(OBJ)
+	ar -rcs $(NAME) $(OBJ)
+
+bonus: $(B_NAME)
+
+$(B_NAME): $(B_OBJ)
+	ar -rcs $(B_NAME) $(B_OBJ)
+	ar -rcs $(NAME) $(B_OBJ)
 
 clean:
-	@rm -f $(SRC:.c=.o) $(B_SRC:.c=.o)
+	rm -f $(SRC:.c=.o) $(B_SRC:.c=.o)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME) $(B_NAME)
 
 re: fclean all
-
-bonus: $(B_OBJ)
-	@ar -rc $(NAME) $(B_OBJ)
 
 .PHONY: all clean fclean re bonus
